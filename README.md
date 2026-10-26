@@ -72,3 +72,7 @@ bun run --cwd frontend build
 ```
 
 The integration script uses uniquely named temporary records in the configured Mongo database and cleans them up. It exercises real Hono routes with a test identity injected in a local test harness: idempotent offline replay, schedule validation, delete restore, multi-step undo, and durable sync jobs. Live Google consent and real phone delivery require the corresponding connected account/device.
+
+## Deployed app
+
+The app is deployed at [kanban.devzshrc.in](https://kanban.devzshrc.in), with its Hono API at [kanban-api.devzshrc.in](https://kanban-api.devzshrc.in). MongoDB Atlas uses the free M0 tier in AWS Mumbai. See [deployment and redeploy instructions](docs/deployment.md).
