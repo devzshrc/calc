@@ -19,7 +19,7 @@ export class KanbanApi extends DurableObject<Env> {
       );
     try {
       await connect();
-      return await app.fetch(request);
+      return await app.fetch(request, this.env);
     } catch (error) {
       console.error(
         "Database request failed",
