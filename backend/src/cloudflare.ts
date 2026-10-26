@@ -19,7 +19,9 @@ export class KanbanApi extends DurableObject<Env> {
       );
     try {
       await connect();
-      return await app.fetch(request, this.env);
+      const response = await app.fetch(request, this.env);
+      response.headers.set("x-kanban-runtime", "cloudflare-v2");
+      return response;
     } catch (error) {
       console.error(
         "Database request failed",
@@ -38,7 +40,7 @@ export class KanbanApi extends DurableObject<Env> {
   }
 }
 function stub(env: Env) {
-  return env.KANBAN_API.get(env.KANBAN_API.idFromName("kanban-mumbai-v1"), {
+  return env.KANBAN_API.get(env.KANBAN_API.idFromName("kanban-mumbai-v2"), {
     locationHint: "apac",
   });
 }

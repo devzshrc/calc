@@ -41,7 +41,14 @@ app.route("/", api);
 app.onError((err, c) => {
   if (err instanceof HTTPException)
     return c.json({ error: err.message }, err.status);
-  console.error("API request failed", err.name);
+  console.error(
+    "API request failed",
+    err.name,
+    err.message.replace(
+      /sk_(?:test|live)_[A-Za-z0-9]+|mongodb(?:\+srv)?:\/\/[^\s]+/g,
+      "[redacted]",
+    ),
+  );
   return c.json({ error: "Internal server error" }, 500);
 });
 export type AppType = typeof app;
