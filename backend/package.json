@@ -1,0 +1,25 @@
+{
+  "name": "backend",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "bun run --hot src/index.ts",
+    "start": "bun run src/index.ts",
+    "db:up": "docker compose up -d mongo",
+    "typecheck": "bunx tsc --noEmit"
+  },
+  "dependencies": {
+    "@clerk/backend": "^3.26.2",
+    "@clerk/hono": "^0.1.93",
+    "@hono/zod-validator": "^0.9.1",
+    "hono": "^4.13.14",
+    "mongodb": "^7.7.0",
+    "web-push": "^3.6.7",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/web-push": "^3.6.4",
+    "typescript": "^7.0.2"
+  }
+}
