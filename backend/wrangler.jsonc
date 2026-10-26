@@ -1,0 +1,24 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "kanban-api",
+  "main": "src/cloudflare.ts",
+  "account_id": "9fc659204a4b6add55243297ac5cbf0b",
+  "compatibility_date": "2026-10-26",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  "routes": [{ "pattern": "kanban-api.devzshrc.in", "custom_domain": true }],
+  "vars": {
+    "MONGODB_DB": "kanban",
+    "APP_URL": "https://kanban.devzshrc.in",
+    "PUBLIC_API_URL": "https://kanban-api.devzshrc.in",
+    "CORS_ORIGINS": "https://kanban.devzshrc.in",
+    "GOOGLE_WEBHOOK_URL": "https://kanban-api.devzshrc.in/google/webhook",
+    "DEEPSEEK_MODEL": "deepseek-chat",
+  },
+  "durable_objects": {
+    "bindings": [{ "name": "KANBAN_API", "class_name": "KanbanApi" }],
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["KanbanApi"] }],
+  "triggers": { "crons": ["* * * * *"] },
+  "observability": { "enabled": true },
+}

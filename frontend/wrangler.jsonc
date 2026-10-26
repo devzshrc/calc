@@ -1,0 +1,16 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "kanban-web",
+  "account_id": "9fc659204a4b6add55243297ac5cbf0b",
+  "main": ".output/server/index.mjs",
+  "compatibility_date": "2026-10-26",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": { "directory": ".output/public", "binding": "ASSETS" },
+  "workers_dev": true,
+  "routes": [{ "pattern": "kanban.devzshrc.in", "custom_domain": true }],
+  "vars": {
+    "API_URL": "https://kanban-api.devzshrc.in",
+    "PUBLIC_API_URL": "https://kanban-api.devzshrc.in",
+  },
+  "observability": { "enabled": true },
+}
