@@ -40,7 +40,7 @@ export class KanbanApi extends DurableObject<Env> {
   }
 }
 function stub(env: Env) {
-  return env.KANBAN_API.get(env.KANBAN_API.idFromName("kanban-mumbai-v2"), {
+  return env.KANBAN_API.get(env.KANBAN_API.idFromName("kanban-mumbai-v3"), {
     locationHint: "apac",
   });
 }

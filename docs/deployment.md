@@ -39,7 +39,7 @@ After changing secrets, upload them with `bunx wrangler secret bulk` using a pri
 
 The deployment currently uses the existing Clerk development instance. Switch to a Clerk production instance and its Google OAuth client before a public launch; keep users/data migration in mind when changing Clerk instances.
 
-Google Calendar/Tasks/Gmail connections need `GOOGLE_CLIENT_SECRET` in the API Worker. `GOOGLE_CLIENT_ID` is already configured, and the deployed app origin plus `https://kanban-api.devzshrc.in/google/callback` are registered in Google Cloud alongside the local development URLs. DeepSeek features require `DEEPSEEK_API_KEY`, which is not present in the local configuration. Board, calendar, journal, focus, undo, offline capture, and push infrastructure work independently of that key.
+Google Calendar/Tasks/Gmail OAuth credentials are configured as API Worker secrets using the Kanban Web client. The the deployed app origin plus `https://kanban-api.devzshrc.in/google/callback` are registered in Google Cloud alongside the local development URLs. DeepSeek features require `DEEPSEEK_API_KEY`, which is not present in the local configuration. Board, calendar, journal, focus, undo, offline capture, and push infrastructure work independently of that key.
 
 Phone push additionally needs notification permission in the installed app. On iPhone, install the PWA to the home screen first. Real phone delivery requires testing from the device.
 
