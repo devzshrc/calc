@@ -18,10 +18,25 @@ import type {
 const uri = process.env.MONGODB_URI ?? "mongodb://localhost:27017";
 const dbName = process.env.MONGODB_DB ?? "kanban";
 
-const client = new MongoClient(uri);
+const client = new MongoClient(uri, {
+  maxPoolSize: 3,
+  minPoolSize: 0,
+  serverSelectionTimeoutMS: 10000,
+  maxIdleTimeMS: 60000,
+});
 let db: Db | null = null;
+let connecting: Promise<Db> | null = null;
 
-export async function connect() {
+export async function connect(): Promise<Db> {
+  if (connecting) return connecting;
+  connecting = initialize().catch((error) => {
+    db = null;
+    connecting = null;
+    throw error;
+  });
+  return connecting;
+}
+async function initialize() {
   if (db) return db;
   await client.connect();
   db = client.db(dbName);

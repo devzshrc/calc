@@ -6,7 +6,10 @@
     "dev": "bun run --hot src/index.ts",
     "start": "bun run src/index.ts",
     "db:up": "docker compose up -d mongo",
-    "typecheck": "bunx tsc --noEmit"
+    "typecheck": "bunx tsc --noEmit",
+    "deploy": "bunx wrangler deploy",
+    "deploy:dry": "bunx wrangler deploy --dry-run",
+    "dev:cloudflare": "bunx wrangler dev"
   },
   "dependencies": {
     "@clerk/backend": "^3.26.2",
@@ -18,8 +21,10 @@
     "zod": "^4.6.7"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261026.1",
     "@types/bun": "latest",
     "@types/web-push": "^3.6.4",
-    "typescript": "^7.0.2"
+    "typescript": "^7.0.2",
+    "wrangler": "^4.152.0"
   }
 }

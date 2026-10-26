@@ -40,19 +40,32 @@ export const trackChanges = createMiddleware<AuthEnv>(async (c, next) => {
   const userId = c.var.userId;
   const match = c.req.path.match(/\/boards\/([^/]+)\/tasks(?:\/([^/]+))?/);
   if (!match) return next();
-  const body =
+  const payload =
     c.req.method !== "DELETE"
       ? await c.req.raw
           .clone()
           .json()
           .catch(() => ({}))
       : {};
+  const body =
+    payload && typeof payload === "object"
+      ? (payload as { tasks?: unknown; id?: unknown })
+      : {};
   const ids: string[] =
     match[2] && !["order", "bulk"].includes(match[2])
       ? [match[2]]
       : Array.isArray(body.tasks)
-        ? body.tasks.map((t: { id: string }) => t.id)
-        : body.id
+        ? body.tasks
+            .filter((t): t is { id: string } =>
+              Boolean(
+                t &&
+                typeof t === "object" &&
+                "id" in t &&
+                typeof t.id === "string",
+              ),
+            )
+            .map((t) => t.id)
+        : typeof body.id === "string"
           ? [body.id]
           : [];
   const filter = {
